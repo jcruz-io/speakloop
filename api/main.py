@@ -1,13 +1,9 @@
 from fastapi import Depends, FastAPI, File, Form, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 
+from api.dependencies import get_evaluate_pronunciation_use_case, get_generate_practice_text_use_case
 from core.application.use_cases import EvaluatePronunciationUseCase, GeneratePracticeTextUseCase
 from core.domain.models import EvaluationResult, GeneratedText, PracticePreferences
-from infrastructure.adapters.mock_services import (
-    MockPronunciationEvaluator,
-    MockSpeechToText,
-    MockTextGenerator,
-)
 
 app = FastAPI(title="SpeakLoop API")
 
@@ -18,17 +14,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-def get_generate_practice_text_use_case() -> GeneratePracticeTextUseCase:
-    return GeneratePracticeTextUseCase(text_generator=MockTextGenerator())
-
-
-def get_evaluate_pronunciation_use_case() -> EvaluatePronunciationUseCase:
-    return EvaluatePronunciationUseCase(
-        speech_to_text=MockSpeechToText(),
-        pronunciation_evaluator=MockPronunciationEvaluator(),
-    )
 
 
 @app.post("/api/v1/practice-texts", response_model=GeneratedText)

@@ -5,6 +5,9 @@ PROJECT_NAME = "{{ config_root | basename }}"
 # Automatic virtualenv activation
 _.python.venv = { path = ".venv", create = true }
 
+# OpenAI API key
+OPENAI_API_KEY = { required = true }
+
 [tools]
 python = "{{ get_env(name='PYTHON_VERSION', default='3.11') }}"
 ruff = "latest"

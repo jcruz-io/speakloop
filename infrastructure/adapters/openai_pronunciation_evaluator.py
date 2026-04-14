@@ -67,6 +67,7 @@ class OpenAIPronunciationEvaluator(PronunciationEvaluatorPort):
 
         corrections = [CorrectionTip(**item) for item in data.get("corrections", [])]
         return EvaluationResult(
+            original_text=original_text,
             transcribed_text=transcribed_text,
             accuracy_score=float(data.get("accuracy_score", 0.0)),
             corrections=corrections,

@@ -1,5 +1,6 @@
 from fastapi import Depends, FastAPI, File, Form, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from api.dependencies import get_evaluate_pronunciation_use_case, get_generate_practice_text_use_case
 from core.application.use_cases import EvaluatePronunciationUseCase, GeneratePracticeTextUseCase
@@ -32,3 +33,6 @@ async def evaluate_pronunciation(
 ) -> EvaluationResult:
     audio_bytes = await audio_file.read()
     return await use_case.execute(audio_bytes=audio_bytes, original_text=original_text)
+
+
+app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")

@@ -85,6 +85,7 @@ class MockPronunciationEvaluator(PronunciationEvaluatorPort):
             ),
         ]
         return EvaluationResult(
+            original_text=original_text,
             transcribed_text=transcribed_text,
             accuracy_score=85.0,
             corrections=corrections,

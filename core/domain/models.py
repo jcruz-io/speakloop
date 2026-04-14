@@ -30,6 +30,7 @@ class CorrectionTip(BaseModel):
 class EvaluationResult(BaseModel):
     """Represents the full result of a pronunciation evaluation session."""
 
+    original_text: str
     transcribed_text: str
     accuracy_score: float | int
     corrections: list[CorrectionTip]
